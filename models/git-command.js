@@ -33,6 +33,11 @@ class GitCommand {
             this.staging.push(modified_files[path_file]);
             delete modified_files[path_file];
         }
+        else if(path_file == "."){
+            for (let index in modified_files) {
+                this.staging.push(modified_files[index]);
+            }
+            this.working_directory.new_changes = {};
         else if(path_file == "*"){
             let file_list = Object.keys(modified_files);
 
