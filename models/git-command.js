@@ -10,7 +10,20 @@ class GitCommand {
     }
 
     //Command: git status
-    // status(){}
+    status(){
+        let count = 0;
+        let message = '';
+        for (let index in this.working_directory.new_changes) {
+            if (message.length == 0) {
+                message += index;
+            }
+            else {
+                message += '\n' + index;
+            }
+            count++;
+        }
+        return `You have ${count} change/s.\n${message}`;
+    }
 
     //Command: git add <filename/file directory/wildcard> 
     add(path_file){
@@ -21,7 +34,9 @@ class GitCommand {
             delete modified_files[path_file];
         }
         else if(path_file == "."){
-            this.staging.push(modified_files);
+            for (let index in modified_files) {
+                this.staging.push(modified_files[index]);
+            }
             this.working_directory.new_changes = {};
         }
         else{
